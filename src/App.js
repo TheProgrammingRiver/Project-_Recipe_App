@@ -8,6 +8,9 @@ import RecipeData from "./RecipeData"
 function App() {
   const [recipes, setRecipes] = useState(RecipeData);
 
+  // TODO: Add the ability for the <RecipeList /> component to list and delete an existing recipe.
+  // TODO: Add the ability for the <RecipeCreate /> component to create new recipes.
+  
   const initialFormState = {
     name: "",
     cuisine: "",
@@ -23,6 +26,13 @@ function App() {
       [target.name]: target.value,
     })    
   }
+  
+  const createRecipe = (newRecipe) =>
+    setRecipes((currentRecipes) => [
+      ...currentRecipes,
+      newRecipe,
+      
+    ]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,8 +53,7 @@ function App() {
     <div className="App">
       <header><h1 style={{fontSize: "64px"}} className="playfair">Delicious Food Recipes</h1></header>
       <RecipeList recipes={recipes} handleDelete={handleDelete}/>
-      <RecipeCreate initialFormState={initialFormState} formData={formData} handleChange={handleChange} handleSubmit={handleSubmit}/>
-      
+      <RecipeCreate initialFormState={initialFormState} formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} createRecipe={createRecipe}      />     
     </div>
   );
 }

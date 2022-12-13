@@ -1,79 +1,109 @@
 import React, { useState } from "react";
-import "./RecipeCreate.css"
 
-function RecipeCreate({initialFormState, formData, handleChange, handleSubmit}) {
+function RecipeCreate({ createRecipe }) {
 
+  const initialFormState = {
+    name: "Name",
+    cuisine: "Cuisine",
+    photo: "URL",
+    ingredients: "Ingredients",
+    preparation: "Preparation",
+
+  }
+
+  const [formData, setFormData] = useState({  ...initialFormState });
+
+  const handleChange = ({ target }) => {
+    setFormData({
+      ...formData,
+      [target.name]: target.value,
+    });
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    createRecipe( formData )
+    setFormData({ ...initialFormState });
+  }
+
+  // TODO: When the form is submitted, a new recipe should be created, and the form contents cleared.
+  // TODO: Add the required input and textarea form elements.
+  // TODO: Add the required submit and change handlers
+  
   return (
-    <div>
-      <form name="create" onSubmit={handleSubmit} id="form" >
-        <table>
-          <tbody className="bg">
-            <tr >
-              <td>
+    <form name="create" onSubmit={handleSubmit}>
+      <table>
+        <tbody>
+          <tr className="row-form">
+            <td>
+              <label htmlFor="name">
                 <input
-                  id="name" 
-                  name="name"
+                  id="name"
                   type="text"
-                  placeholder="Name"
-                  form="form"
+                  name="name"
                   onChange={handleChange}
                   value={formData.name}
+                  className="row-field"
                 />
-              </td>
-              <td>
+              </label>
+            </td>
+            <td>
+              <label htmlFor="cuisine">
                 <input
-                  id="cuisine" 
-                  name="cuisine"
+                  id="cuisine"
                   type="text"
-                  placeholder="Cuisine"
-                  form="form"
+                  name="cuisine"
                   onChange={handleChange}
                   value={formData.cuisine}
+                  className="row-field"
                 />
-              </td>
-              <td>
+              </label>
+            </td>
+            <td>
+              <label htmlFor="photo">
                 <input
-                  id="photo" 
+                  id="photo"
+                  type="url"
                   name="photo"
-                  type="text"
-                  placeholder="URL"
-                  form="form"
                   onChange={handleChange}
                   value={formData.photo}
+                  className="row-field"
                 />
-              </td>
-              <td>
+              </label>
+            </td>
+            <td>
+              <label htmlFor="ingredients">
                 <textarea
-                  id="ingredients" 
+                  id="ingredients"
+                  type="text"
                   name="ingredients"
-                  type="text"
-                  placeholder="Ingredients"
-                  form="form"
-                  rows="2"
+                  row="2"
+                  className="row-field"
                   onChange={handleChange}
-                  value={formData.ingredients}
-                />
-              </td>
-              <td>
+                  value={formData.ingredients}>
+                </textarea>
+              </label>
+            </td>
+            <td>
+              <label htmlFor="preparation">
                 <textarea
-                  id="preparation" 
-                  name="preparation"
+                  id="preparation"
                   type="text"
-                  placeholder="Preparation"
-                  form="form"
-                  rows="2"
+                  name="preparation"
+                  row="2"
+                  className="row-field"
                   onChange={handleChange}
-                  value={formData.preparation}
-                />
-              </td>
-              <td>
-                <button type="submit" form="form">Create</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-    </div>
+                  value={formData.preparation}>
+                </textarea>              
+              </label>
+            </td>
+            <td>
+              <button type="submit">Create</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
   );
 }
 
